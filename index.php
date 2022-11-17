@@ -26,6 +26,11 @@ class Player
     {
         return $this->coins;
     }
+
+    public function oods(Player $player)
+    {
+        return round($this->bank() / ($this->bank() + $player->bank()), 2) * 100 . "%";
+    }
 }
 
 class Game
@@ -48,12 +53,10 @@ class Game
 
     public function start()
     {
-        $player1oods = $this->player1->bank() / ($this->player1->bank() + $this->player2->bank()) *100 . "%";
-        $player2oods = $this->player2->bank() / ($this->player1->bank() + $this->player2->bank()) *100 . "%";
         echo <<<EOT
             Game started.
-            {$this->player1->name} chances: {$player1oods}
-            {$this->player2->name} chances: {$player1oods}
+            {$this->player1->name} chances: {$this->player1->oods($this->player2)}
+            {$this->player2->name} chances: {$this->player2->oods($this->player1)}
             
 
 EOT;
@@ -103,7 +106,7 @@ EOT;
 }
 
 $game = new Game(
-    new Player('Joe', '100'),
+    new Player('Joe', '10000'),
     new Player('Jane', '100')
 );
 
