@@ -10,6 +10,22 @@ class Player
         $this->name = $name;
         $this->coins = $coins;
     }
+
+    public function point(Player $player)
+    {
+        $this->coins++;
+        $player->coins--;
+    }
+
+    public function bankrupt()
+    {
+        return $this->coins == 0;
+    }
+
+    public function bank()
+    {
+        return $this->coins;
+    }
 }
 
 class Game
@@ -24,37 +40,35 @@ class Game
         $this->player2 = $player2;
     }
 
+    public function flip()
+    {
+        // Toss a coin
+        return rand(0, 1) ? "heads" : "tails";
+    }
+
     public function start()
     {
         while (true) {
-            // Toss a coin
-            $flip = rand(0, 1) ? "heads" : "tails";
-
             // if heads n1 gains a coin, n2 loses a coin
             // if tails n1 loses a coin, n2 gains a coin
-            if ($flip == "heads") {
-                $this->player1->coins++;
-                $this->player2->coins--;
+            if ($this->flip() == "heads") {
+                $this->player1->point($this->player2);
             } else {
-                $this->player1->coins--;
-                $this->player2->coins++;
+                $this->player2->point($this->player1);
             }
 
             // If someone has 0 coins, then the game is over.
-            if ($this->player1->coins == 0 || $this->player2->coins == 0) {
+            if ($this->player1->bankrupt() || $this->player2->bankrupt()) {
                 return $this->end();
             }
 
             $this->flips++;
         }
     }
-    public function winner()
+
+    public function winner(): Player
     {
-        if ($this->player1->coins > $this->player2->coins) {
-            return $this->player1;
-        } else {
-            return $this->player2;
-        }
+        return $this->player1->bank() > $this->player2->bank() ? $this->player1 : $this->player2;
     }
 
     public function end()
