@@ -48,6 +48,21 @@ class Game
 
     public function start()
     {
+        $player1oods = $this->player1->bank() / ($this->player1->bank() + $this->player2->bank()) *100 . "%";
+        $player2oods = $this->player2->bank() / ($this->player1->bank() + $this->player2->bank()) *100 . "%";
+        echo <<<EOT
+            Game started.
+            {$this->player1->name} chances: {$player1oods}
+            {$this->player2->name} chances: {$player1oods}
+            
+
+EOT;
+
+        $this->play();
+    }
+
+    public function play()
+    {
         while (true) {
             // if heads n1 gains a coin, n2 loses a coin
             // if tails n1 loses a coin, n2 gains a coin
