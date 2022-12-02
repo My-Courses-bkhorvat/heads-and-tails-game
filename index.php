@@ -105,9 +105,49 @@ EOT;
     }
 }
 
-$game = new Game(
-    new Player('Joe', '10000'),
-    new Player('Jane', '100')
-);
+if ($_POST['player1Name'] && $_POST['player1Coins'] && $_POST['player2Name'] && $_POST['player2Coins']) {
+    if (strlen($_POST['player1Coins']) > 4 && strlen($_POST['player2Coins']) > 4) {
+        echo "Big numbers is a very long game. Enter a lower number.";
+    } else {
+        $game = new Game(
+            new Player($_POST['player1Name'], $_POST['player1Coins']),
+            new Player($_POST['player2Name'], $_POST['player2Coins'])
+        );
 
-$game->start();
+        $game->start();
+    }
+} else {
+    echo "Fill in all the fields";
+}
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Heads and tails</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+<form action="index.php" method="post">
+    <div class="mb-3">
+        <label for="player1Name" class="form-label">Player 1 name</label>
+        <input type="text" class="form-control" id="player1Name" name="player1Name" value="<?=$_POST['player1Name']?>">
+        <label for="player1Coins" class="form-label">Player 1 coins</label>
+        <input type="text" class="form-control" id="player1Coins" name="player1Coins" value="<?=$_POST['player1Coins']?>">
+    </div>
+    <div class="mb-3">
+        <label for="player2Name" class="form-label">Player 2 name</label>
+        <input type="text" class="form-control" id="player2Name" name="player2Name" value="<?=$_POST['player2Name']?>">
+        <label for="player2Coins" class="form-label">Player 2 coins</label>
+        <input type="text" class="form-control" id="player2Coins" name="player2Coins" value="<?=$_POST['player2Coins']?>">
+    </div>
+    <button type="submit" class="btn btn-primary">Play</button>
+</form>
+</body>
+</html>
