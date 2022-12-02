@@ -2,7 +2,6 @@
 
 class Player
 {
-    public $i;
     public $name;
     public $coins;
 
