@@ -54,9 +54,9 @@ class Game
     public function start()
     {
         echo <<<EOT
-            Game started.
-            {$this->player1->name} chances: {$this->player1->oods($this->player2)}
-            {$this->player2->name} chances: {$this->player2->oods($this->player1)}
+            <b>Game started.</b> <br>
+            {$this->player1->name} chances: {$this->player1->oods($this->player2)}<br>
+            {$this->player2->name} chances: {$this->player2->oods($this->player1)}<br>
             
 
 EOT;
@@ -94,11 +94,11 @@ EOT;
         //The winner is the one with the most coins.
 
         echo <<<EOT
-            Game over.
-            {$this->player1->name}: {$this->player1->coins}
-            {$this->player2->name}: {$this->player2->coins}
+            <b>Game over.</b><br>
+            {$this->player1->name}: {$this->player1->coins} <br>
+            {$this->player2->name}: {$this->player2->coins} <br>
             
-            Winner: {$this->winner()->name}
+            <b>Winner: {$this->winner()->name}</b> <br>
             
             Count of flips: {$this->flips}
 EOT;
@@ -149,5 +149,7 @@ if ($_POST['player1Name'] && $_POST['player1Coins'] && $_POST['player2Name'] && 
     </div>
     <button type="submit" class="btn btn-primary">Play</button>
 </form>
+<a href="http://testmyproject.pl/" class="btn btn-primary">Go to all projects</a>
+<a href="https://github.com/My-Courses-bkhorvat/heads-and-tails-game" class="btn btn-primary">Check code on GitHub</a>
 </body>
 </html>
